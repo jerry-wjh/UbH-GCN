@@ -1,0 +1,62 @@
+num_worker: 0
+work_dir: ./work_dir/AIDE/bone_root_14/
+
+# feeder
+feeder: feeders.feeder_aide.Feeder
+train_feeder_args:
+  data_path: ./data/AIDE/processed_data/train_data.npy
+  label_path: ./data/AIDE/processed_data/train_label.pkl
+  split: train
+  debug: False
+  random_choose: False
+  random_shift: False
+  random_move: False
+  window_size: 16
+  normalization: False
+  random_rot: False
+  p_interval: [0.5, 1]
+  bone: True
+
+eval_feeder_args:
+  data_path: ./data/AIDE/processed_data/eval_data.npy
+  label_path: ./data/AIDE/processed_data/eval_label.pkl
+  split: eval
+  window_size: 16
+  p_interval: [0.95]
+  bone: True
+  debug: False
+
+test_feeder_args:
+  data_path: ./data/AIDE/processed_data/test_data.npy
+  label_path: ./data/AIDE/processed_data/test_label.pkl
+  split: test
+  window_size: 16
+  p_interval: [0.95]
+  bone: True
+  debug: False
+
+# model
+model: model.UbHGCN.Model
+model_args:
+  num_class: 5
+  num_point: 14
+  num_person: 1
+  drop_out: 0.25
+  graph: graph.aide_hierarchy.Graph
+  graph_args:
+    labeling_mode: 'spatial'
+    root: 14
+
+#optim
+weight_decay: 0.0004
+base_lr: 0.1
+warm_up_epoch: 5
+cls_num_list: [259, 1123, 208, 155, 139]
+
+# training
+device: [0]
+batch_size: 64
+eval_batch_size: 1
+test_batch_size: 1
+num_epoch: 90
+nesterov: True
