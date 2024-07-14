@@ -10,8 +10,6 @@ import math
 from sklearn.metrics import f1_score
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.metrics import confusion_matrix
-from sklearn import manifold
-from visdom import Visdom
 
 EMOTION_LABEL= ['Anxiety', 'Peace', 'Weariness', 'Happiness', 'Anger']
 
@@ -63,14 +61,14 @@ if __name__ == "__main__":
     
     dir_cnt = 0
 
-    if arg.CoM_1:
+    if arg.root_1:
         with open(os.path.join(arg.main_dir, 'joint_root_1/', 'epoch1_test_score.pkl'), 'rb') as r1:
             r1 = list(pickle.load(r1).items())
         with open(os.path.join(arg.main_dir, 'bone_root_1/', 'epoch1_test_score.pkl'), 'rb') as r2:
             r2 = list(pickle.load(r2).items())
         dir_cnt += 2
         
-    if arg.CoM_14:
+    if arg.root_14:
         with open(os.path.join(arg.main_dir, 'joint_root_14/' 'epoch1_test_score.pkl'), 'rb') as r3:
             r3 = list(pickle.load(r3).items())
         with open(os.path.join(arg.main_dir, 'bone_root_14/', 'epoch1_test_score.pkl'), 'rb') as r4:
@@ -89,11 +87,11 @@ if __name__ == "__main__":
         out_put = []
         for i in tqdm(range(len(label))):
             l = label[i]
-            if arg.CoM_1:
+            if arg.root_1:
                 r11 = np.array(r1[i][1])
                 r22 = np.array(r2[i][1])
                 r = norm(r11) + norm(r22)
-            if arg.CoM_14:
+            if arg.root_14:
                 r33 = np.array(r3[i][1])
                 r44 = np.array(r4[i][1])
                 r = r + norm(r33) + norm(r44) if r is not None else norm(r33) + norm(r44)
@@ -129,11 +127,11 @@ if __name__ == "__main__":
         out_put = []
         for i in tqdm(range(len(label))):
             l = label[i]
-            if arg.CoM_1:
+            if arg.root_1:
                 r11 = np.array(r1[i][1])
                 r22 = np.array(r2[i][1])
                 r = norm(r11) + norm(r22)       
-            if arg.CoM_14:
+            if arg.root_14:
                 r33 = np.array(r3[i][1])
                 r44 = np.array(r4[i][1])
                 r = r + norm(r33) + norm(r44) if r is not None else norm(r33) + norm(r44)
