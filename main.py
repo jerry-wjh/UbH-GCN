@@ -339,7 +339,6 @@ class Processor():
             self.loss = LabelSmoothingCrossEntropy(smoothing=0.1).cuda(output_device)
 
         if self.arg.weights:
-            # self.global_step = int(arg.weights[:-3].split('-')[-1])
             self.print_log('Load weights from {}.'.format(self.arg.weights))
             if '.pkl' in self.arg.weights:
                 with open(self.arg.weights, 'r') as f:
@@ -468,7 +467,6 @@ class Processor():
             timer['dataloader'] += self.split_time()
 
             # forward
-            # output = self.model(data, 'train')
             output = self.model(data)
             loss = self.loss(output, label)
             # backward
@@ -503,12 +501,6 @@ class Processor():
         self.print_log('\tLearning Rate: {:.4f}'.format(self.lr))
         self.print_log('\tTime consumption: [Data]{dataloader}, [Network]{model}'.format(**proportion))
 
-        # if save_model:
-        #     state_dict = self.model.state_dict()
-        #     weights = OrderedDict([[k.split('module.')[-1], v.cpu()] for k, v in state_dict.items()])
-
-        #     torch.save(weights, self.arg.model_saved_name + '-' + str(epoch+1) + '-' + str(int(self.global_step)) + '.pt')
-
     def eval(self, epoch, save_score=False, loader_name=['test'], wrong_file=None, result_file=None, extract=False):
         if wrong_file is not None:
             f_w = open(wrong_file, 'w')
@@ -522,7 +514,6 @@ class Processor():
             label_list = []
             pred_list = []
             step = 0
-            # feature = []
             process = tqdm(self.data_loader[ln])
             for batch_idx, (data, label, index) in enumerate(process):
                 label_list.append(label.data.cpu().numpy())
@@ -613,7 +604,7 @@ class Processor():
                 self.eval(epoch, save_score=False, loader_name=['eval'])
 
             # test the best model
-            weights_path = glob.glob(os.path.join(self.arg.work_dir, 'model_best.pt'))
+            weights_path = os.path.join(self.arg.work_dir, 'model_best.pt')
             weights = torch.load(weights_path)['state_dict']
             if type(self.arg.device) is list:
                 if len(self.arg.device) > 1:
@@ -622,9 +613,9 @@ class Processor():
 
             wf = weights_path.replace('.pt', '_wrong.txt')
             rf = weights_path.replace('.pt', '_right.txt')
-            # self.arg.print_log = False
+            self.arg.print_log = False
             self.eval(epoch=0, save_score=True, loader_name=['test'], wrong_file=wf, result_file=rf)
-            # self.arg.print_log = True
+            self.arg.print_log = True
 
 
             num_params = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
