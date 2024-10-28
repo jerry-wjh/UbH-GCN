@@ -41,16 +41,6 @@ Put downloaded data into the following directory structure:
       ...
 ```
 
-#### Generating Data
-
-- Generate AIDE dataset:
-
-```
- cd ./data/AIDE
- # Get skeleton
- python get_raw_skes_data.py
-```
-
 ## Training & Testing
 
 ### Training
@@ -99,13 +89,17 @@ Thanks to the original authors for their awesome works!
 Please cite this work if you find it useful:
 
 ```BibTex
-@inproceedings{wu2025_upper,
-	author = {Wu, Jiehui and Chen, Jiansheng and Luo, Qifeng and Liu, Siqi and Xue, Youze and Ma, Huimin},
-	booktitle = {European Conference on Computer Vision},
-	organization = {Springer},
-	title = {Upper-body Hierarchical Graph for Skeleton Based Emotion Recognition in Assistive Driving},
-	year = {2025},
-	note = {To be published}}
+@InProceedings{10.1007/978-3-031-73347-5_1,
+author="Wu, Jiehui and Chen, Jiansheng and Luo, Qifeng and Liu, Siqi and Xue, Youze and Ma, Huimin",
+editor="Leonardis, Ale{\v{s}} and Ricci, Elisa and Roth, Stefan and Russakovsky, Olga and Sattler, Torsten and Varol, G{\"u}l",
+title="Upper-Body Hierarchical Graph for Skeleton Based Emotion Recognition in Assistive Driving",
+booktitle="Computer Vision -- ECCV 2024",
+year="2025",
+publisher="Springer Nature Switzerland",
+address="Cham",
+pages="1--17",
+abstract="Emotion recognition plays a crucial role in enhancing the safety and enjoyment of assistive driving experiences. By enabling intelligent systems to perceive and understand human emotions, we can significantly improve human-machine interactions. Current research in emotion recognition emphasizes facial expressions, speech and physiological signals, often overlooking body movement's expressive potential. Existing most methods, reliant on full-body poses and graph convolutional networks with predetermined adjacency matrices, face challenges in driving scenarios, including limited visibility, restricted movement and imbalanced data distribution, which affect model generalization and accuracy. To overcome these limitations, we introduce an innovative emotion recognition method tailored for assistive driving. Our method leverages upper-body skeleton sequences, overcoming the constraints of full-body pose capture in driving scenario. Our architecture employs an upper-body hierarchical graph (UbH-Graph) to dynamically capture upper-body movement and emotion relationships. We uniquely incorporate class-specific variations during training, balancing feature distribution and enhancing emotion recognition. Our method outperforms existing multimodal approaches on the assistive driving dataset and demonstrates robustness and adaptability on the daily action dataset. Code is available at https://github.com/jerry-wjh/UbH-GCN.",
+isbn="978-3-031-73347-5"
 }
 ```
 
